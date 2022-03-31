@@ -1,9 +1,5 @@
 import React from 'react';
-
-interface IState {
-    episodes: Array<any>,
-    favourites: Array<any>,
-}
+import { IState, IAction } from './interfaces'
 
 const initialState: IState = {
     //populate initialState with ~ episode & favorites
@@ -11,11 +7,6 @@ const initialState: IState = {
     //which then fetches the data through an array
     episodes: [],
     favourites: [],
-}
-
-export interface IAction {
-    type: string,
-    payload: any
 }
 
 //create the store & then pass "episodes & favourite" from initialState
@@ -29,8 +20,10 @@ function reducer(state: IState, action: IAction): IState {//[pass IState as a ge
         case 'FETCH_DATA':
             //checked
             // then populate the store
+            //get whatever is in  our state
             return { ...state, episodes: action.payload }
         case 'ADD_FAV':
+            //add whatever is the state to the favorites
             return { ...state, favourites: [...state.favourites, action.payload] }
         default:
             return state
@@ -41,8 +34,10 @@ function reducer(state: IState, action: IAction): IState {//[pass IState as a ge
 //StoreProvider gives the component in the app access to the store.
 //value: state & dispatch is passed to App.tsx;
 //dispatch(argument) triggers the action
-//state is the value.
 //useReducer has a default value of reducer & and initialState
+//takes reducer as the first arg, takes initialState as 2nd arg
+//variable ~ [state, dispatch] is passed to the value.
+//then, passed down to the Provider value as an object 
 //useReducer communicates to the component
 
 export function StoreProvider(props: any): JSX.Element {

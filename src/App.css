@@ -27,3 +27,8 @@ body {
   padding: .5rem;
   top: 0;
 }
+
+button{
+  background:grey;
+  color: white;
+}

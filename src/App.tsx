@@ -1,23 +1,11 @@
 import React from 'react';
 import './App.css';
-import { IAction, Store } from './Store'; //store is imported from the parent element
+import { Store } from './Store';
+import Img from './assets/thumb-1920-909641.png'
+import { IEpisode, IAction } from './interfaces'
 
+//store is imported from the parent element
 
-interface IEpisode {
-  airdate: string
-  airstamp: string
-  airtime: string
-  id: number
-  image: { medium: string, original: string }
-  name: string
-  number: number
-  rating: { average: null }
-  runtime: number
-  season: number
-  summary: string
-  type: string
-  url: string
-}
 
 function App(): JSX.Element {
   const { state, dispatch } = React.useContext(Store);
@@ -30,7 +18,9 @@ function App(): JSX.Element {
   const fetchDataAction = async () => {
     const URL = 'https://api.tvmaze.com/singlesearch/shows?q=rick-&-morty&embed=episodes'
     const data = await fetch(URL) //Fetch Url
-    const dataJSON = await data.json(); //convert data to a readable json 
+    const dataJSON = await data.json();
+    //convert data to a readable json
+    //use the dispatch method to fetch data to the state.
     return dispatch({
       type: 'FETCH_DATA', //checked
       payload: dataJSON._embedded.episodes
@@ -39,11 +29,11 @@ function App(): JSX.Element {
 
   //export interface from store 
   const toggleFavAction = (episode: IEpisode): IAction => dispatch({
-    type: 'Add_FAV', //add functionality to the store.
+    type: 'Add_FAV', //add functionality from the store.
     payload: episode
   })
   console.log(state);
-  
+
 
   return (
     <React.Fragment>
@@ -56,11 +46,12 @@ function App(): JSX.Element {
           return (
             <section key={episode.id} className="episode-box">
               {/* <img src={episode.image.original} alt={`Ricky${episode.name}`} /> */}
+              <img src={Img} alt="temporary display thumbnail" width={100} height={100} />
               <section>
                 <div>
                   Season: {episode.season} Number: {episode.number}
                 </div>
-                <button onClick={() => toggleFavAction(episode)}>
+                <button type="button" onClick={() => toggleFavAction(episode)}>
                   Fav
                 </button>
               </section>
