@@ -5,20 +5,21 @@ interface IState {
     favourites: Array<any>,
 }
 
-const initialState: IState = {
+const initialState: IState = { //populate initialState
     episodes: [],
     favourites: [],
 }
+
+//create the store & then pass "episodes & favourite" from initialState
+export const Store = React.createContext<IState | any>(initialState); //[pass]
 
 export interface IAction {
     type: string,
     payload: any
 }
-//create the store & then pass "episodes & favourite" from initialState
-export const Store = React.createContext < IState | any>(initialState); //[pass]
 
-//reducer manipulates the store
-function reducer(state: IState, action: IAction): IState {//[pass]
+//Reducer manipulates the store
+function reducer(state: IState, action: IAction): IState {//[pass IState as a generic]
     switch (action.type) {
         case 'FETCH_DATA': //checked
             return { ...state, episodes: action.payload }
@@ -30,7 +31,7 @@ function reducer(state: IState, action: IAction): IState {//[pass]
 }
 
 export function StoreProvider(props: any): JSX.Element {
-    //storeProvider gives the component in the app access to the store.
+//StoreProvider gives the component in the app access to the store.
     const [state, dispatch] = React.useReducer(reducer, initialState)
     return (
         <Store.Provider value={{state, dispatch}}>

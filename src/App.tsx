@@ -1,6 +1,7 @@
 import React from 'react';
 import './App.css';
-import { IAction, Store } from './Store';
+import { IAction, Store } from './Store'; //store is imported from the parent element
+
 
 interface IEpisode {
   airdate: string
@@ -41,6 +42,8 @@ function App(): JSX.Element {
     type: 'Add_FAV', //add functionality to the store.
     payload: episode
   })
+  console.log(state);
+  
 
   return (
     <React.Fragment>
