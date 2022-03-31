@@ -1,14 +1,14 @@
 import React from 'react';
 
 interface IState {
-    episodes:  Array<any>,
+    episodes: Array<any>,
     favourites: Array<any>,
 }
 
 const initialState: IState = {
     //populate initialState with ~ episode & favorites
     //the initial stage is then passed down to the store
-    //which then fetches the data
+    //which then fetches the data through an array
     episodes: [],
     favourites: [],
 }
@@ -22,28 +22,33 @@ export interface IAction {
 
 export const Store = React.createContext<IState | any>(initialState); //front-end store [pass]
 
-//Reducer manipulates the store
+//Reducer manipulates & changes  the store
 function reducer(state: IState, action: IAction): IState {//[pass IState as a generic]
-    switch (action.type) {//IAction ~ type string, which fetches the data from the api.
-        case 'FETCH_DATA': //checked
+    switch (action.type) {
+        //IAction ~ type string, which fetches the data from the api.
+        case 'FETCH_DATA':
+            //checked
+            // then populate the store
             return { ...state, episodes: action.payload }
         case 'ADD_FAV':
-            return {...state, favourites: [...state.favourites, action.payload]}
+            return { ...state, favourites: [...state.favourites, action.payload] }
         default:
             return state
     }
 }
 
-export function StoreProvider(props: any): JSX.Element {
+
 //StoreProvider gives the component in the app access to the store.
 //value: state & dispatch is passed to App.tsx;
 //dispatch(argument) triggers the action
 //state is the value.
 //useReducer has a default value of reducer & and initialState
-    
+//useReducer communicates to the component
+
+export function StoreProvider(props: any): JSX.Element {
     const [state, dispatch] = React.useReducer(reducer, initialState)
     return (
-        <Store.Provider value={{state, dispatch}}>
+        <Store.Provider value={{ state, dispatch }}>
             {props.children}
         </Store.Provider>
     )
