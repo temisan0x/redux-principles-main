@@ -5,7 +5,10 @@ interface IState {
     favourites: Array<any>,
 }
 
-const initialState: IState = { //populate initialState
+const initialState: IState = {
+    //populate initialState with ~ episode & favorites
+    //the initial stage is then passed down to the store
+    //which then fetches the data
     episodes: [],
     favourites: [],
 }
