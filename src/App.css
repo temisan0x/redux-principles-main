@@ -1,0 +1,29 @@
+html {
+  font-size: 14px;
+  font-family: sans-serif;
+}
+
+body {
+  padding: 0;
+  margin: 0;
+  font-family: 10px;
+}
+
+.episode-layout {
+  display: flex;
+  flex-wrap: wrap;
+  min-width: 100vh;
+}
+
+.episode-box {
+  padding: .5rem;
+}
+
+.header {
+  display: flex;
+  justify-content: space-between;
+  background-color: whitesmoke;
+  border-bottom: 1px solid black;
+  padding: .5rem;
+  top: 0;
+}
