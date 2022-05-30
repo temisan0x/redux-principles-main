@@ -7,28 +7,17 @@ body {
   padding: 0;
   margin: 0;
   font-family: 10px;
+  background-color: #764ABC;
 }
 
-.episode-layout {
-  display: flex;
-  flex-wrap: wrap;
-  min-width: 100vh;
+.title {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate3d(-50%, -50%, 0);
 }
 
-.episode-box {
-  padding: .5rem;
-}
-
-.header {
-  display: flex;
-  justify-content: space-between;
-  background-color: whitesmoke;
-  border-bottom: 1px solid black;
-  padding: .5rem;
-  top: 0;
-}
-
-button{
-  background:grey;
-  color: white;
+h1 {
+  color:whitesmoke;
+  font-size: 100px;
 }
