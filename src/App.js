@@ -1,8 +1,10 @@
 import React from 'react';
 import './App.css';
 //store is imported from the parent element
-function App() {
+import configStore from './store/configStore';
 
+function App() {
+console.log(configStore);
     return (
         <React.Fragment>
             <div className="title">
