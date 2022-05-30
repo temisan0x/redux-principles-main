@@ -2,9 +2,9 @@ import { createAction } from "@reduxjs/toolkit";
 
 
 /* eslint-disable no-unused-vars */
-const noteAdded = createAction("noteAdded");
-const noteRemoved = createAction("noteRemoved");
-const noteResolved = createAction("noteResolved");
+export const noteAdded = createAction("noteAdded");
+export const noteRemoved = createAction("noteRemoved");
+export const noteResolved = createAction("noteResolved");
 
 //REDUCERS
 
