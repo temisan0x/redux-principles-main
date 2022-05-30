@@ -6,7 +6,7 @@ import * as actions from './store/projects'
 
 function App() {
     const store = configStore();
-    store.dispatch(actions.projectAdded({id: 1, name: "project 1"}));
+    store.dispatch(actions.projectAdded({name: "project 1"}));
     // store.dispatch(actions.noteAdded({ note: "note added 1" }));
     // store.dispatch(actions.noteAdded({ note: "note added 2" }));
     // store.dispatch(actions.noteAdded({ note: "note added 3" }));
