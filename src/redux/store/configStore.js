@@ -1,4 +1,5 @@
 import { configureStore } from "@reduxjs/toolkit";
+import api from "../middleware/api";
 import func from "../middleware/func";
 import logger from "../middleware/logger";
 import toastify from "../middleware/toastify";
@@ -11,7 +12,8 @@ export default function () {
         middleware: [
             logger({ destination: "console" }),
             func,
-            toastify
+            toastify,
+            api
         ]
     });
 }

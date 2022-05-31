@@ -11,8 +11,17 @@ function App() {
             type: "error",
             payload: {message: ": an error occured"}
         })
-        console.log(getState());
     })
+
+    store.dispatch({
+        type: "apiCall",
+        payload: {
+            url: "/notes",
+            onSuccess: "apiResponseReceived",
+            onError: "apiRequestFailed"
+        }
+    });
+
 
     return (
         <React.Fragment>
