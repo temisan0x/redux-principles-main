@@ -1,18 +1,18 @@
 import React from 'react';
 import './App.css';
 //store is imported from the parent element
-import configStore from './store/configStore';
-import * as actions from './store/notes'
-import {projectAdded} from './store/projects'
+import configStore from './redux/store/configStore';
 
 function App() {
     const store = configStore();
-    store.dispatch(projectAdded({name: "project 1"}));
-    store.dispatch(actions.noteAdded({ note: "note added 1" }));
-    store.dispatch(actions.noteAdded({ note: "note added 2" }));
-    store.dispatch(actions.noteAdded({ note: "note added 3" }));
-    store.dispatch(actions.noteResolved(1));
-
+    //Thunk Function
+    store.dispatch(({dispatch, getState}) => {
+        dispatch({
+            type: "error",
+            payload: {message: ": an error occured"}
+        })
+        console.log(getState());
+    })
 
     return (
         <React.Fragment>
