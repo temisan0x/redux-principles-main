@@ -4,24 +4,6 @@ import './App.css';
 import configStore from './redux/store/configStore';
 
 function App() {
-    const store = configStore();
-    //Thunk Function
-    store.dispatch(({dispatch, getState}) => {
-        dispatch({
-            type: "error",
-            payload: {message: ": an error occured"}
-        })
-    })
-
-    store.dispatch({
-        type: "apiCall",
-        payload: {
-            url: "/notes",
-            onSuccess: "apiResponseReceived",
-            onError: "apiRequestFailed"
-        }
-    });
-
 
     return (
         <React.Fragment>
