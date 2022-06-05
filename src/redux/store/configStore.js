@@ -13,7 +13,7 @@ export default function () {
             logger({ destination: "console" }),
             func,
             toastify,
-            api
+            api,
         ]
     });
 }
