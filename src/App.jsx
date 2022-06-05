@@ -7,21 +7,14 @@ import * as actions from './redux/api'
 function App() {
 
     const store = configStore();
-    //Thunk Function
-    // store.dispatch(({dispatch, getState}) => {
-    //     dispatch({
-    //         type: "error",
-    //         payload: {message: ": an error occured"}
-    //     })
-    // })
-
-    store.dispatch({
-        type: actions.apiCallBegan.type,
-        payload: {
+    
+    //dispatch action
+    store.dispatch(
+        actions.apiCallBegan({
             url: "/notes",
-            onSuccess: actions.apiCallSuccess.type,
-        }
-    });
+            onSuccess: "notes/notesRecieved"
+        })
+    );
 
 
     return (
