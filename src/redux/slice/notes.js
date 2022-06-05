@@ -1,5 +1,6 @@
 import { createSelector, createSlice } from "@reduxjs/toolkit";
-import { apiCallBegan } from '../api'
+import { apiCallBegan } from '../api';
+import moment from 'moment';
 
 let lastId = 0;
 
@@ -61,8 +62,8 @@ let url = "/notes";
 
 export const loadNotes = () => ({dispatch, getState}) => {
     const { lastFetch } = getState().entities.notes;
-
-    console.log(lastFetch);
+    const diffInMinutes = moment().diff(moment(lastFetch),'minutes');
+    if (diffInMinutes < 10) return;
     dispatch(
         apiCallBegan({
         url,
