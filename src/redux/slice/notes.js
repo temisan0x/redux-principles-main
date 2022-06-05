@@ -8,11 +8,19 @@ export const slice = createSlice({
     initialState: {
         loading: false,
         list: [],
-        fetchedList: null,
+        lastFetch: null,
     },
     reducers: {
+        notesRequested: (notes, action) => {
+            notes.loading = true;
+        },
         notesRecieved: (notes, action) => {
             notes.list = action.payload;
+            notes.loading = false;
+            notes.lastFetch = Date.now();
+        },
+        notesRequestFailed: (notes, action) => {
+            notes.loading = false;
         },
         noteAssignedToUser: (notes, action) => {
             const { noteId, userId } = action.payload;
@@ -43,15 +51,27 @@ export const getUnresolvedNotes = createSelector(
 
 export const getNotesByUser = state => state.entities.notes.filter(note => note.userId === !note.userId);
 
-export const { noteAdded, noteResolved, noteAssignedToUser,  notesRecieved} = slice.actions;
+//extracted actions
+export const { noteAdded, noteResolved, noteAssignedToUser, notesRecieved, notesRequested, notesRequestFailed } = slice.actions;
 export default slice.reducer;
 
 
 //Actions Creator
-
 let url = "/notes";
 
-export const loadNotes = () => apiCallBegan({
-    url,
-    onSuccess: notesRecieved.type
-});
+export const loadNotes = () => ({dispatch, getState}) => {
+    const { lastFetch } = getState().entities.notes;
+
+    console.log(lastFetch);
+    dispatch(
+        apiCallBegan({
+        url,
+        onStart: notesRequested.type,
+        onSuccess: notesRecieved.type,
+        onError: notesRequestFailed.type
+        }))
+    
+}
+
+
+//shift command 0,
