@@ -2,7 +2,7 @@ import { createSelector, createSlice } from "@reduxjs/toolkit";
 import { apiCallBegan } from '../api';
 import moment from 'moment';
 
-let lastId = 0;
+// let lastId = 0;
 
 export const slice = createSlice({
     name: "notes",
@@ -24,16 +24,12 @@ export const slice = createSlice({
             notes.loading = false;
         },
         noteAssignedToUser: (notes, action) => {
-            const { noteId, userId } = action.payload;
+            const {userId: noteId, userId } = action.payload;
             const index = notes.list.findIndex(note => note.id === noteId);
             notes.list[index].userId = userId;
         },
         noteAdded: (notes, action) => {
-            notes.list.push({
-                id: ++lastId,
-                description: action.payload.description,
-                resolved: false
-            })
+            notes.list.push(action.payload)
         },
         noteResolved: (notes, action) => {
             const index = notes.list.findIndex(note => note.id === action.payload.id);
@@ -53,7 +49,7 @@ export const getUnresolvedNotes = createSelector(
 export const getNotesByUser = state => state.entities.notes.filter(note => note.userId === !note.userId);
 
 //extracted actions
-export const { noteAdded, noteResolved, noteAssignedToUser, notesRecieved, notesRequested, notesRequestFailed } = slice.actions;
+const { noteAdded, noteResolved, noteAssignedToUser, notesRecieved, notesRequested, notesRequestFailed } = slice.actions;
 export default slice.reducer;
 
 
@@ -74,5 +70,28 @@ export const loadNotes = () => ({dispatch, getState}) => {
     
 }
 
+//saving data to the server
+export const addNotes = (note) => apiCallBegan({
+    url,
+    method: "post",
+    data: note,
+    onSuccess: noteAdded.type
+});
+
+//asinging notes to a user 
+export const assignNotesToUser = (noteId, userId) => apiCallBegan({
+    url: url + "/" + noteId,
+    method: "patch",
+    data: { userId },
+    onSuccess: noteAssignedToUser.type,
+});
+
+
+export const resolveNotes = (userId) => apiCallBegan({
+    url: url + "/" + userId,
+    method: "patch",
+    data: { userId },
+    onSuccess: noteResolved.type
+})
 
 //shift command 0,

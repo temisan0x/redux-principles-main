@@ -2,16 +2,20 @@ import React from 'react';
 import './App.css';
 //store is imported from the parent element
 import configStore from './redux/store/configStore';
-import { loadNotes } from './redux/slice/notes';
+import { loadNotes, addNotes, assignNotesToUser, resolveNotes } from './redux/slice/notes';
 
 function App() {
 
     const store = configStore();
 
     //dispatch action
+    store.dispatch(addNotes({ description: "a" }));
+    setTimeout(() => store.dispatch(assignNotesToUser(1, 3)), 3000)
+
+    setTimeout(() => store.dispatch(resolveNotes(1)), 3000)
+
     store.dispatch(loadNotes());
 
-    setTimeout(()=> store.dispatch(loadNotes()),3000)
     return (
         <React.Fragment>
             <div className="title">
